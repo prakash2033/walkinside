@@ -1,0 +1,117 @@
+<div id="join-details" class="">
+    <form [formGroup]="avatarForm" (ngSubmit)="onSubmit(avatarForm)">
+  <div id="selected-avatar" class="team-member-picture"><img src={{avatarStr}}>
+    <label>
+        Name:
+        <input type="text" formControlName="name">
+        <div *ngIf="submitted && avatarForm.controls.name.errors" class="error">
+          <div *ngIf="avatarForm.controls.name.errors.required">Your name is required, bro.</div>
+        </div>
+      </label>
+      <input type="submit" value="Enter" class="btn-primary">
+  </div>
+  
+</form>
+  <div id="avatar-previews">
+    <div class="avatar-preview-wrapper" (click)='selectAvatar("Angel-icon")'> 
+      <a class="avatar-preview">
+        <img src="assets/avatars/Angel-icon.png">
+      </a>
+    </div>
+    <div class="avatar-preview-wrapper" (click)='selectAvatar("Clown-icon")'> 
+      <a class="avatar-preview">
+        <img src="assets/avatars/Clown-icon.png">
+      </a>
+    </div>
+    <div class="avatar-preview-wrapper" (click)='selectAvatar("Dad-icon")'> 
+      <a class="avatar-preview">
+        <img src="assets/avatars/Dad-icon.png">
+      </a>
+     </div>
+     <div class="avatar-preview-wrapper" (click)='selectAvatar("Girl-icon")'> 
+        <a class="avatar-preview">
+          <img src="assets/avatars/Girl-icon.png">
+        </a>
+      </div>
+      <div class="avatar-preview-wrapper" (click)='selectAvatar("Kid-icon")'> 
+        <a class="avatar-preview">
+          <img src="assets/avatars/Kid-icon.png">
+        </a>
+      </div>
+      <div class="avatar-preview-wrapper" (click)='selectAvatar("Knight-icon")'> 
+        <a class="avatar-preview">
+        <img src="assets/avatars/Knight-icon.png">
+        </a>
+      </div>
+      <div class="avatar-preview-wrapper" (click)='selectAvatar("Lawyer-icon")'> 
+        <a class="avatar-preview">
+          <img src="assets/avatars/Lawyer-icon.png">
+        </a>
+      </div>
+      <div class="avatar-preview-wrapper" (click)='selectAvatar("Leprechaun-icon")'> 
+        <a class="avatar-preview">
+          <img src="assets/avatars/Leprechaun-icon.png">
+        </a>
+      </div>
+      <div class="avatar-preview-wrapper" (click)='selectAvatar("Man-icon")'> 
+        <a class="avatar-preview">
+          <img src="assets/avatars/Man-icon.png">
+        </a>
+      </div>
+      <div class="avatar-preview-wrapper" (click)='selectAvatar("Mermaid-icon")'> 
+        <a class="avatar-preview">
+          <img src="assets/avatars/Mermaid-icon.png">
+        </a>
+      </div>
+      <div class="avatar-preview-wrapper" (click)='selectAvatar("Monster-icon")'> 
+        <a class="avatar-preview">
+          <img src="assets/avatars/Monster-icon.png">
+        </a>
+      </div>
+      <div class="avatar-preview-wrapper" (click)='selectAvatar("Ninja-icon")'> 
+        <a class="avatar-preview">
+          <img src="assets/avatars/Ninja-icon.png">
+        </a>
+      </div>
+      <div class="avatar-preview-wrapper" (click)='selectAvatar("Pirate-icon")'> 
+        <a class="avatar-preview">
+          <img src="assets/avatars/Pirate-icon.png">
+        </a>
+      </div>
+      <div class="avatar-preview-wrapper" (click)='selectAvatar("Princess-icon")'> 
+        <a class="avatar-preview">
+          <img src="assets/avatars/Princess-icon.png">
+        </a>
+      </div>
+      <div class="avatar-preview-wrapper" (click)='selectAvatar("Robot-icon")'> 
+        <a class="avatar-preview">
+          <img src="assets/avatars/Robot-icon.png">
+        </a>
+      </div>
+      <div class="avatar-preview-wrapper" (click)='selectAvatar("Superhero-icon")'> 
+        <a class="avatar-preview">
+          <img src="assets/avatars/Superhero-icon.png">
+        </a>
+      </div>
+      <div class="avatar-preview-wrapper" (click)='selectAvatar("Teacher-icon")'> 
+        <a class="avatar-preview">
+          <img src="assets/avatars/Teacher-icon.png">
+        </a>
+      </div>
+      <div class="avatar-preview-wrapper" (click)='selectAvatar("Troll-icon")'> 
+        <a class="avatar-preview">
+          <img src="assets/avatars/Troll-icon.png">
+        </a>
+      </div>
+      <div class="avatar-preview-wrapper" (click)='selectAvatar("Vampire-icon")'> 
+        <a class="avatar-preview">
+          <img src="assets/avatars/Vampire-icon.png">
+        </a>
+      </div>
+      <div class="avatar-preview-wrapper" (click)='selectAvatar("Zombie-icon")'> 
+        <a class="avatar-preview">
+          <img src="assets/avatars/Zombie-icon.png">
+        </a>
+      </div>
+  </div>
+</div>
