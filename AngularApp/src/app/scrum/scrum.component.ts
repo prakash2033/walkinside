@@ -10,6 +10,7 @@ export class ScrumComponent implements OnInit {
 
   avatarStr:string;
   avatarImgSrc:string;
+  avatarTeam:string;
   constructor(private route: ActivatedRoute) {
     
    }
@@ -18,10 +19,10 @@ export class ScrumComponent implements OnInit {
     this.route.params.subscribe(p=>{
       this.avatarStr = p['avatar'];
       this.avatarImgSrc = p['avatarSrc'];
+      this.avatarTeam = p['teamName'];
     });
     console.log(this.avatarStr);
     console.log(this.avatarImgSrc);
-
+    console.log(this.avatarTeam);
   }
-
 }

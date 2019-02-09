@@ -19,7 +19,8 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.avatarForm = this.formBuilder.group({
-      name: ['', Validators.required]
+      userName: ['', Validators.required],
+      teamName: ['', Validators.required]
     });
   }
   
@@ -36,8 +37,9 @@ export class HomeComponent implements OnInit {
     }
     this.success=true;
     
-    console.log(avatarForm.controls.name.value);
+    console.log(avatarForm.controls.userName.value);
+    console.log(avatarForm.controls.teamName.value);
     console.log(this.avatarStr);
-    this.router.navigate(['/scrum', avatarForm.controls.name.value, this.avatarStr])
+    this.router.navigate(['/scrum', avatarForm.controls.userName.value, this.avatarStr, avatarForm.controls.teamName.value])
   }
 }

@@ -26,7 +26,7 @@ namespace walkinside.webapi.signalr.Hubs
             return base.OnDisconnectedAsync(exception);
         }
 
-        public void CreateOrJoinScrum(string key, string userName)
+        public void CreateOrJoinScrum(string key, string userName, string userImageName)
         {
             var team = _teams.FirstOrDefault(t => t.Key == key);
             if (team == null)
@@ -40,7 +40,7 @@ namespace walkinside.webapi.signalr.Hubs
                 throw new Exception("You cannot join a team which has started or finished");
             }
 
-            team.ScrumMembers.Add(new ScrumMember { ConnectionId = Context.ConnectionId, Username = userName });
+            team.ScrumMembers.Add(new ScrumMember { ConnectionId = Context.ConnectionId, Username = userName, UserImageName = userImageName });
             BroadcastScrumTeam(team);
         }
 

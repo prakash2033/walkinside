@@ -1,18 +1,26 @@
 <div id="join-details" class="">
     <form [formGroup]="avatarForm" (ngSubmit)="onSubmit(avatarForm)">
-  <div id="selected-avatar" class="team-member-picture"><img src={{avatarStr}}>
-  </div>
-  <div id="form" class="center">
-    <label>
-      Name:
-      <input type="text" formControlName="name">
-      <div *ngIf="submitted && avatarForm.controls.name.errors" class="error">
-        <div *ngIf="avatarForm.controls.name.errors.required">Your name is required, bro.</div>
+      <div id="selected-avatar" class="team-member-picture">
+        <img src={{avatarStr}}>
       </div>
-    </label>
-    <br/>
-    <input type="submit" value="Join" class="btn-primary">
-  </div>
+      <div id="form" class="center">
+        <label>
+          User Name:
+          <input type="text" formControlName="userName">
+          <div *ngIf="submitted && avatarForm.controls.userName.errors" class="error">
+            <div *ngIf="avatarForm.controls.userName.errors.required">Your name is required.</div>
+          </div>
+        </label>
+        <label>
+            Team Name:
+            <input type="text" formControlName="teamName">
+            <div *ngIf="submitted && avatarForm.controls.teamName.errors" class="error">
+              <div *ngIf="avatarForm.controls.teamName.errors.required">Team name is required.</div>
+            </div>
+          </label>
+        <br/>
+        <input type="submit" value="Join" class="btn-primary">
+      </div>
 </form>
   <div id="avatar-previews">
     <div class="avatar-preview-wrapper" (click)='selectAvatar("Angel-icon")'> 

@@ -13,6 +13,8 @@ namespace walkinside.webapi.signalr.Models
 
         public string Username { get; set; }
 
+        public string UserImageName { get; set; }
+
         public int TimeInSeconds { get; set; } = 120;
 
         public bool Spoken { get; set; }

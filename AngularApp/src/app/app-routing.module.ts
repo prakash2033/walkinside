@@ -5,7 +5,7 @@ import { ScrumComponent } from './scrum/scrum.component';
 
 const routes: Routes = [
   {path:'home', component: HomeComponent},
-  {path:'scrum/:avatar/:avatarSrc', component: ScrumComponent}
+  {path:'scrum/:avatar/:avatarSrc/:avatarTeam', component: ScrumComponent}
 ];
 
 @NgModule({

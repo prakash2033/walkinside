@@ -12,3 +12,17 @@ D:\Dev\ng\walkinside.webapi.signalr\walkinside.webapi.signalr\obj\Debug\netcorea
 D:\Dev\ng\walkinside.webapi.signalr\walkinside.webapi.signalr\obj\Debug\netcoreapp2.1\walkinside.webapi.signalr.RazorTargetAssemblyInfo.cache
 D:\Dev\ng\walkinside.webapi.signalr\walkinside.webapi.signalr\obj\Debug\netcoreapp2.1\walkinside.webapi.signalr.dll
 D:\Dev\ng\walkinside.webapi.signalr\walkinside.webapi.signalr\obj\Debug\netcoreapp2.1\walkinside.webapi.signalr.pdb
+D:\Dev\ng\wi\WebApi\walkinside.webapi.signalr\walkinside.webapi.signalr\bin\Debug\netcoreapp2.1\walkinside.webapi.signalr.deps.json
+D:\Dev\ng\wi\WebApi\walkinside.webapi.signalr\walkinside.webapi.signalr\bin\Debug\netcoreapp2.1\walkinside.webapi.signalr.runtimeconfig.json
+D:\Dev\ng\wi\WebApi\walkinside.webapi.signalr\walkinside.webapi.signalr\bin\Debug\netcoreapp2.1\walkinside.webapi.signalr.runtimeconfig.dev.json
+D:\Dev\ng\wi\WebApi\walkinside.webapi.signalr\walkinside.webapi.signalr\bin\Debug\netcoreapp2.1\walkinside.webapi.signalr.dll
+D:\Dev\ng\wi\WebApi\walkinside.webapi.signalr\walkinside.webapi.signalr\bin\Debug\netcoreapp2.1\walkinside.webapi.signalr.pdb
+D:\Dev\ng\wi\WebApi\walkinside.webapi.signalr\walkinside.webapi.signalr\obj\Debug\netcoreapp2.1\walkinside.webapi.signalr.csprojAssemblyReference.cache
+D:\Dev\ng\wi\WebApi\walkinside.webapi.signalr\walkinside.webapi.signalr\obj\Debug\netcoreapp2.1\walkinside.webapi.signalr.csproj.CoreCompileInputs.cache
+D:\Dev\ng\wi\WebApi\walkinside.webapi.signalr\walkinside.webapi.signalr\obj\Debug\netcoreapp2.1\walkinside.webapi.signalr.RazorAssemblyInfo.cache
+D:\Dev\ng\wi\WebApi\walkinside.webapi.signalr\walkinside.webapi.signalr\obj\Debug\netcoreapp2.1\walkinside.webapi.signalr.RazorAssemblyInfo.cs
+D:\Dev\ng\wi\WebApi\walkinside.webapi.signalr\walkinside.webapi.signalr\obj\Debug\netcoreapp2.1\walkinside.webapi.signalr.AssemblyInfoInputs.cache
+D:\Dev\ng\wi\WebApi\walkinside.webapi.signalr\walkinside.webapi.signalr\obj\Debug\netcoreapp2.1\walkinside.webapi.signalr.AssemblyInfo.cs
+D:\Dev\ng\wi\WebApi\walkinside.webapi.signalr\walkinside.webapi.signalr\obj\Debug\netcoreapp2.1\walkinside.webapi.signalr.RazorTargetAssemblyInfo.cache
+D:\Dev\ng\wi\WebApi\walkinside.webapi.signalr\walkinside.webapi.signalr\obj\Debug\netcoreapp2.1\walkinside.webapi.signalr.dll
+D:\Dev\ng\wi\WebApi\walkinside.webapi.signalr\walkinside.webapi.signalr\obj\Debug\netcoreapp2.1\walkinside.webapi.signalr.pdb

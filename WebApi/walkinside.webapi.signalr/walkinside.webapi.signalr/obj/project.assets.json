@@ -11801,11 +11801,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Dev\\ng\\walkinside.webapi.signalr\\walkinside.webapi.signalr\\walkinside.webapi.signalr.csproj",
+      "projectUniqueName": "D:\\Dev\\ng\\wi\\WebApi\\walkinside.webapi.signalr\\walkinside.webapi.signalr\\walkinside.webapi.signalr.csproj",
       "projectName": "walkinside.webapi.signalr",
-      "projectPath": "D:\\Dev\\ng\\walkinside.webapi.signalr\\walkinside.webapi.signalr\\walkinside.webapi.signalr.csproj",
+      "projectPath": "D:\\Dev\\ng\\wi\\WebApi\\walkinside.webapi.signalr\\walkinside.webapi.signalr\\walkinside.webapi.signalr.csproj",
       "packagesPath": "C:\\Users\\praka\\.nuget\\packages\\",
-      "outputPath": "D:\\Dev\\ng\\walkinside.webapi.signalr\\walkinside.webapi.signalr\\obj\\",
+      "outputPath": "D:\\Dev\\ng\\wi\\WebApi\\walkinside.webapi.signalr\\walkinside.webapi.signalr\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
