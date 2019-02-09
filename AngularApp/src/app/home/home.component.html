@@ -1,4 +1,4 @@
-<div id="join-details" class="">
+<div *ngIf="!team" id="join-details" class="">
     <form [formGroup]="avatarForm" (ngSubmit)="onSubmit(avatarForm)">
       <div id="selected-avatar" class="team-member-picture">
         <img src={{avatarStr}}>
@@ -21,7 +21,7 @@
         <br/>
         <input type="submit" value="Join" class="btn-primary">
       </div>
-</form>
+    </form>
   <div id="avatar-previews">
     <div class="avatar-preview-wrapper" (click)='selectAvatar("Angel-icon")'> 
       <a class="avatar-preview">
@@ -125,3 +125,29 @@
       </div>
   </div>
 </div>
+
+<!-- After Create or Join -->
+<div id="team" *ngIf="team" class="scrum-show">
+  <ng-container *ngFor="let scrumMember of team.scrumMembers">
+    <a class="team-member" data-id="53274" data-isclient="false"  data-isscrummaster="false" data-isconchholder="false" data-ispreviousconchholder="{{scrumMember.spoken}}" data-hasvoted="false">
+        <div class="team-member-picture">
+              <img src="{{scrumMember.userImageName}}" />
+         </div>
+        <img class="holding-conch" src="assets/avatars/ball.png" alt="This person is holding the ball">  
+        <img class="scrummaster-badge" src="assets/avatars/scrummaster-badge.png" alt="This is the Scrum Master">  
+        <div class="team-member-details"><span>{{scrumMember.username}}</span></div>
+        <img class="pointer" src="assets/avatars/pointer.png" alt="This is you">
+    </a>
+  </ng-container>
+</div>
+  <!-- <div class="main-button" *ngIf="group.hasStarted && !group.hasFinished">
+      <button (click)="drink()">Drink</button>
+  </div>
+  <div class="main-button" *ngIf="!group.hasStarted && _hubConnection.connection.connectionId == group.owner">
+      <button (click)="start()">Start</button>
+  </div>
+  <div class="main-button" *ngIf="group.hasFinished">
+      Drinking is over!!! Winner is
+      <b>{{group.winnerEmail}}</b>. Click
+      <a (click)="clear()">here</a> to start over.
+  </div> -->

@@ -19,9 +19,8 @@ namespace walkinside.webapi.signalr.Hubs
                 foreach (var team in connectedTeams)
                 {
                     BroadcastScrumTeam(team, true);
-                    connectedTeams.Remove(team);
+                    _teams.Remove(team);
                 }
-                //for(int i=0; i < connectedTeams.Count; i++) // Switch to for loop if foreach doesn't work
             }
             return base.OnDisconnectedAsync(exception);
         }
