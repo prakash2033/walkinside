@@ -1,0 +1,38 @@
+.pointer {
+    display: block;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: -1.25em;
+    width: 2.5em;
+    height: 2.5em;
+    -webkit-animation: is-client 4s 1;
+    -moz-animation: is-client 4s 1;
+    animation: is-client 4s 1;
+
+    border-color: #048;
+  }
+  
+.scrummaster-badge {
+    display: block;
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    width: 4em;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+
+.holding-conch {
+    display: block;
+   position: absolute;
+   top: 50%;
+   left: 10%;
+   width: 4em;
+ }
+ .previousconchholder{
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
+    opacity: 0.4;
+ }
