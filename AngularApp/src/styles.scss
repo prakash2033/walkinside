@@ -441,39 +441,16 @@ body {
   display: none;
 }
 
-.team-member[data-isclient='true'] .team-member-picture {
+.team-member .pointer .team-member-picture {
   border-color: #048;
 }
 
-.team-member[data-isclient='true'] .team-member-picture:hover {
+.team-member .pointer .team-member-picture:hover {
   border-color: #00305f;
 }
 
-.team-member[data-isclient='true'] .pointer {
-  display: block;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-  opacity: 1;
-  position: absolute;
-  top: 0;
-  left: 50%;
-  margin-left: -1.25em;
-  width: 2.5em;
-  height: 2.5em;
-  -webkit-animation: is-client 4s 1;
-  -moz-animation: is-client 4s 1;
-  animation: is-client 4s 1;
-}
-
-.team-member[data-isscrummaster='true'] .scrummaster-badge {
-  display: block;
-  position: absolute;
-  top: 2%;
-  right: 2%;
-  width: 4em;
-}
-
 #team:before, #observers:before {
-  content: "Walkinside Team";
+  content: "Team";
   display: block;
   //font-family: 'Roboto Slab';
   color: #1c6bb4;
@@ -492,27 +469,6 @@ body {
 #observers .team-member {
   font-size: 0.75em;
 }
-
-[data-mode='standup'] .team-member[data-ispreviousconchholder='true'] .team-member-picture img {
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
-  opacity: 0.4;
-}
-
-[data-mode='standup'] .team-member[data-isscrummaster='true'] .team-member-picture img {
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-  opacity: 1;
-}
-
-[data-mode='standup'] .team-member[data-isconchholder='true'] .team-member-picture img {
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-  opacity: 1;
-}
-
-[data-mode='standup'] .team-member[data-isconchholder='true'][data-isclient='false'] .team-member-picture {
-  -webkit-animation: conchGlow 2s infinite;
-  -moz-animation: conchGlow 2s infinite;
-  animation: conchGlow 2s infinite;
-}
 /*[data-mode='standup'] .team-member[data-isconchholder='true'] .holding-conch {*/
 .team-member[data-isconchholder='true'] .holding-conch {
      display: block;
@@ -521,73 +477,6 @@ body {
     left: 10%;
     width: 4em;
   }
-
-[data-mode='poker'] #team .team-member .vote,
-[data-mode='reveal'] #team .team-member .vote {
-  position: absolute;
-  display: block;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  font-size: 6em;
-  font-family: 'Roboto Slab';
-  line-height: 1.8em;
-  height: 100%;
-  background: #333333;
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
-  opacity: 0;
-  border-radius: 50%;
-  -webkit-transition: all 0.1s linear;
-  -moz-transition: all 0.1s linear;
-  transition: all 0.1s linear;
-}
-
-[data-mode='poker'] #team .team-member .vote span,
-[data-mode='reveal'] #team .team-member .vote span {
-  display: none;
-}
-
-[data-mode='poker'] #team .team-member .vote:after,
-[data-mode='reveal'] #team .team-member .vote:after {
-  display: inline;
-  content: "...";
-}
-
-[data-mode='poker'] #team .team-member[data-hasvoted='true'] .vote,
-[data-mode='reveal'] #team .team-member[data-hasvoted='true'] .vote {
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-  opacity: 1;
-}
-
-[data-mode='poker'] #team .team-member[data-hasvoted='true'][data-isclient='true'] .vote span,
-[data-mode='reveal'] #team .team-member[data-hasvoted='true'][data-isclient='true'] .vote span {
-  display: inline;
-}
-
-[data-mode='poker'] #team .team-member[data-hasvoted='true'][data-isclient='true'] .vote:after,
-[data-mode='reveal'] #team .team-member[data-hasvoted='true'][data-isclient='true'] .vote:after {
-  content: "";
-}
-
-[data-mode='reveal'] #team .team-member .vote {
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-  opacity: 1;
-}
-
-[data-mode='reveal'] #team .team-member .vote span {
-  display: inline;
-}
-
-[data-mode='reveal'] #team .team-member .vote:after {
-  content: "";
-}
-
-[data-mode='reveal'] #team .team-member[data-hasvoted='false'] .vote:after {
-  content: "?";
-}
 
 .team-member-picture {
   width: 80%;

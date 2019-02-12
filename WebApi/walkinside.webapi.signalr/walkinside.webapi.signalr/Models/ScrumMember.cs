@@ -7,7 +7,9 @@ namespace walkinside.webapi.signalr.Models
 {
     public class ScrumMember
     {
-        public bool HasLeft { get; set; }
+        public bool IsScrumMaster { get; set; } 
+
+        public bool IsConchHolder { get; set; }
 
         public string ConnectionId { get; set; }
 

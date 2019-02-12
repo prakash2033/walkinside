@@ -16,5 +16,7 @@ namespace walkinside.webapi.signalr.Models
         public string ScrumMaster{ get; set; }
 
         public List<ScrumMember> ScrumMembers { get; set; } = new List<ScrumMember>();
+
+        public string ErrorMessage { get; set; }
     }
 }

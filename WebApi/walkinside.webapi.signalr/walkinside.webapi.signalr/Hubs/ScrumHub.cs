@@ -30,51 +30,99 @@ namespace walkinside.webapi.signalr.Hubs
             var team = _teams.FirstOrDefault(t => t.Key == key);
             if (team == null)
             {
-                // ScrumMaster is the owner of Scrum
-                team = new ScrumTeam { Key = key, ScrumMaster = Context.ConnectionId };
+                // Create and start scrum
+                team = new ScrumTeam { Key = key, ScrumStarted = true };
                 _teams.Add(team);
             }
-            if (team.ScrumFinished || team.ScrumStarted)
+            if (team.ScrumFinished)
             {
-                throw new Exception("You cannot join a team which has started or finished");
+                team.ErrorMessage = "You cannot join a team which has finished";
             }
 
+            // Join Scrum
             team.ScrumMembers.Add(new ScrumMember { ConnectionId = Context.ConnectionId, Username = userName, UserImageName = userImageName });
             BroadcastScrumTeam(team);
         }
 
-        public void StartScrum()
+        public void GrabBall()
         {
-            var team = _teams.FirstOrDefault(t => t.ScrumMaster == Context.ConnectionId && !t.ScrumFinished && !t.ScrumStarted);
+            // I'm the scrum master
+            var team = _teams.FirstOrDefault(t => !t.ScrumFinished && t.ScrumStarted && t.ScrumMembers.Any(sm => sm.ConnectionId == Context.ConnectionId));
             if (team != null)
             {
-                // Broadcast scrum team that scrum has started
-                team.ScrumStarted = true;
-                BroadcastScrumTeam(team);
+                var scrumMember = team.ScrumMembers.FirstOrDefault(sm => sm.ConnectionId == Context.ConnectionId);
+                if (scrumMember != null)
+                {
+                    scrumMember.IsScrumMaster = true;
+                    scrumMember.IsConchHolder = true;
+                    team.ScrumMaster = scrumMember.ConnectionId;
+                }
             }
+            var other = team.ScrumMembers.FirstOrDefault(sm => sm.ConnectionId != Context.ConnectionId && sm.IsScrumMaster == true && sm.IsConchHolder == true);
+            if (other != null)
+            {
+                other.IsConchHolder = false;
+                other.IsScrumMaster = false;
+            }
+
+            BroadcastScrumTeam(team);
         }
 
-        public void Speak()
+        public void Speak(string connectionId)
         {
             var team = _teams.FirstOrDefault(t => !t.ScrumFinished && t.ScrumStarted && t.ScrumMembers.Any(sm => sm.ConnectionId == Context.ConnectionId));
             if (team != null)
             {
-                var scrumMember = team.ScrumMembers.First(sm => sm.ConnectionId == Context.ConnectionId);
+                var scrumMember = team.ScrumMembers.FirstOrDefault(sm => sm.ConnectionId == Context.ConnectionId && sm.IsConchHolder == true);
                 if (scrumMember != null)
                 {
-                    // Mark this scrum member as spoken
-                    scrumMember.Spoken = true;
+                    // Mark me spoken
+                    if (!scrumMember.IsScrumMaster)
+                        scrumMember.Spoken = true;
+                    scrumMember.IsConchHolder = false;
+
+                    // If ball passed to scrum master
+                    var selectedScrumMember = team.ScrumMembers.FirstOrDefault(f => f.ConnectionId == connectionId);
+                    if (selectedScrumMember != null)
+                    {
+                        selectedScrumMember.IsConchHolder = true;
+                        
+                        if (selectedScrumMember.IsScrumMaster)
+                            selectedScrumMember.Spoken = true;
+                    }
                 }
+                else
+                {
+                    team.ErrorMessage = "You are not scrum master or do not have a ball to pass";
+                }
+
                 BroadcastScrumTeam(team);
 
-                var thoseWhoNotSpokeYet = team.ScrumMembers.First(sm => sm.Spoken == false);
-                if(thoseWhoNotSpokeYet == null)
+                var thoseWhoNotSpokeYet = team.ScrumMembers.FirstOrDefault(sm => sm.Spoken == false);
+                if (thoseWhoNotSpokeYet == null)
                 {
                     // Everybody spoke scrum is over
                     team.ScrumFinished = true;
                     _teams.Remove(team);
                 }
             }
+        }
+
+        public async Task StartTimer(ScrumMember scrumMember, ScrumTeam team)
+        {
+            await Task.Run(() => {
+                while (scrumMember.TimeInSeconds > 0)
+                {
+                    scrumMember.TimeInSeconds--;
+                    BroadcastScrumTeam(team);
+                }
+            });
+
+        }
+
+        public string GetConnectionId()
+        {
+            return Context.ConnectionId;
         }
 
         private void BroadcastScrumTeam(ScrumTeam team, bool removing = false)

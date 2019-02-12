@@ -1,4 +1,7 @@
 <div *ngIf="!team" id="join-details" class="">
+    <div class="jumbotron">
+        <p>Distributed Scrum Daily</p>
+      </div>
     <form [formGroup]="avatarForm" (ngSubmit)="onSubmit(avatarForm)">
       <div id="selected-avatar" class="team-member-picture">
         <img src={{avatarStr}}>
@@ -11,13 +14,6 @@
             <div *ngIf="avatarForm.controls.userName.errors.required">Your name is required.</div>
           </div>
         </label>
-        <label>
-            Team Name:
-            <input type="text" formControlName="teamName">
-            <div *ngIf="submitted && avatarForm.controls.teamName.errors" class="error">
-              <div *ngIf="avatarForm.controls.teamName.errors.required">Team name is required.</div>
-            </div>
-          </label>
         <br/>
         <input type="submit" value="Join" class="btn-primary">
       </div>
@@ -129,17 +125,25 @@
 <!-- After Create or Join -->
 <div id="team" *ngIf="team" class="scrum-show">
   <ng-container *ngFor="let scrumMember of team.scrumMembers">
-    <a class="team-member" data-id="53274" data-isclient="false"  data-isscrummaster="false" data-isconchholder="false" data-ispreviousconchholder="{{scrumMember.spoken}}" data-hasvoted="false">
-        <div class="team-member-picture">
+    <a class="team-member" (click)="Speak(scrumMember.connectionId)">
+        <div [ngClass]="{'previousconchholder && (!scrumMember.isScrumMaster)': scrumMember.spoken}" class="team-member-picture">
               <img src="{{scrumMember.userImageName}}" />
          </div>
-        <img class="holding-conch" src="assets/avatars/ball.png" alt="This person is holding the ball">  
-        <img class="scrummaster-badge" src="assets/avatars/scrummaster-badge.png" alt="This is the Scrum Master">  
-        <div class="team-member-details"><span>{{scrumMember.username}}</span></div>
-        <img class="pointer" src="assets/avatars/pointer.png" alt="This is you">
+        <img *ngIf="scrumMember.isConchHolder" class="holding-conch" src="assets/avatars/ball.png" alt="This person is holding the ball">  
+        <img *ngIf="scrumMember.isScrumMaster" class="scrummaster-badge" src="assets/avatars/scrummaster-badge.png" alt="This is the Scrum Master">  
+        <div class="team-member-details">
+          <span>{{scrumMember.username}}</span>
+          <!-- <span *ngIf="scrumMember.isConchHolder && (scrumMember.timeInSeconds)">{{scrumMember.timeInSeconds}}</span> -->
+        </div>
+        <img *ngIf="scrumMember.connectionId == this.clientConnectionId" class="pointer" src="assets/avatars/pointer.png" alt="This is you">
     </a>
   </ng-container>
+  <button *ngIf="!team.scrumMaster" (click)="GrabBall()" class="btn-primary">I'm the scrum master</button>
+  <ng-container *ngIf="team.errorMessage">
+    
+  </ng-container>
 </div>
+
   <!-- <div class="main-button" *ngIf="group.hasStarted && !group.hasFinished">
       <button (click)="drink()">Drink</button>
   </div>

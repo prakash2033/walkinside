@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from "@angular/router";
 import { HubConnection, HubConnectionBuilder } from "@aspnet/signalr";
 
 @Component({
@@ -14,19 +14,24 @@ export class HomeComponent implements OnInit {
   public hubConnection: HubConnection;
   public userName: string = ''; 
   public teamName: string = ''; // key
+  public clientConnectionId:string='';
+  timeLeft: number = 120;
+  interval;
 
   avatarForm: FormGroup;
   avatarStr:string = "";
   submitted = false;
   success:boolean = false;
-  constructor(private formBuilder: FormBuilder, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute) {
     this.avatarStr = "assets/avatars/Kid-icon.png";
    }
 
   ngOnInit() {
+    this.route.params.subscribe(p=>{
+      this.teamName = p['scrumTeam'];
+    });
     this.avatarForm = this.formBuilder.group({
-      userName: ['', Validators.required],
-      teamName: ['', Validators.required]
+      userName: ['', Validators.required]
     });
 
     // Create Connection
@@ -35,12 +40,12 @@ export class HomeComponent implements OnInit {
       .start()
       .then(() => console.log('Connection started!'))
       .catch(err => console.log('Error while establishing connection :('));
-
+      
       this.hubConnection.on('Team', (data: any) => {
         this.team = data; // Scrum Team (Group)
-        console.log(this.team);
+        //console.log(this.team);
       });
-
+      
   }
   
   selectAvatar(avatarName:any): void {
@@ -59,13 +64,14 @@ export class HomeComponent implements OnInit {
 
     
     console.log(avatarForm.controls.userName.value);
-    console.log(avatarForm.controls.teamName.value);
     console.log(this.avatarStr);
 
     // Call CreateOrJoin
-    this.hubConnection.invoke('CreateOrJoinScrum', avatarForm.controls.teamName.value,
+    this.hubConnection.invoke('CreateOrJoinScrum', this.teamName,
       avatarForm.controls.userName.value, this.avatarStr);
     //this.router.navigate(['/scrum',avatarForm.controls.teamName.value])
+
+    this.GetAndStoreConnectionId();
   }
 
   // Start
@@ -73,7 +79,21 @@ export class HomeComponent implements OnInit {
     this.hubConnection.invoke('StartScrum');
   }
 
-  Speak(){
-    this.hubConnection.invoke('Speak');
+  GrabBall(){
+    this.hubConnection.invoke('GrabBall');
+  }
+
+  Speak(connectionId:string){
+    this.hubConnection.invoke('Speak', connectionId);
+  }
+
+  GetAndStoreConnectionId(){
+    let self = this
+    this.hubConnection.invoke<string>('GetConnectionId')
+    .then(function (connectionId:string) {
+      self.clientConnectionId = connectionId;
+      localStorage.setItem('connectionId', self.clientConnectionId);
+      console.log(connectionId);
+    });
   }
 }
