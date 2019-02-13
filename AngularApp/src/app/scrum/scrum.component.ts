@@ -35,8 +35,7 @@ export class ScrumComponent implements OnInit {
                           'assets/avatars/Troll-icon.png',
                           'assets/avatars/Vampire-icon.png',
                           'assets/avatars/Zombie-icon.png']
-  timeLeft: number = 120;
-  interval;
+  public isBallHolder:boolean;
 
   avatarForm: FormGroup;
   avatarStr:string = "";
@@ -69,7 +68,7 @@ export class ScrumComponent implements OnInit {
       
       this.hubConnection.on('Team', (data: any) => {
         this.team = data; // Scrum Team (Group)
-        console.log(this.team);
+        //console.log(this.team);
       });
       
   }
@@ -88,9 +87,8 @@ export class ScrumComponent implements OnInit {
     }
     this.success=true;
 
-    
-    console.log(avatarForm.controls.userName.value);
-    console.log(this.avatarStr);
+    console.log('username: ' + avatarForm.controls.userName.value);
+    console.log('image selected: ' + this.avatarStr);
 
     // Call CreateOrJoin
     this.hubConnection.invoke('CreateOrJoinScrum', this.teamName,
@@ -99,26 +97,47 @@ export class ScrumComponent implements OnInit {
     this.GetAndStoreConnectionId();
   }
 
-  // Start
-  StartScrum(){
-    this.hubConnection.invoke('StartScrum');
-  }
-
-  GrabBall(){
-    this.hubConnection.invoke('GrabBall');
-  }
-
-  Speak(connectionId:string){
-    this.hubConnection.invoke('Speak', connectionId);
-  }
-
+  // Get And StoreConnectionId
   GetAndStoreConnectionId(){
     let self = this
     this.hubConnection.invoke<string>('GetConnectionId')
     .then(function (connectionId:string) {
       self.clientConnectionId = connectionId;
       localStorage.setItem('connectionId', self.clientConnectionId);
-      console.log(connectionId);
+      console.log('your connection id: ' + connectionId);
     });
+  }
+
+  // Start
+  StartScrum(){
+    this.hubConnection.invoke('StartScrum');
+  }
+
+  // GrabBall
+  GrabBall(){
+    this.hubConnection.invoke('GrabBall');
+  }
+
+  Speak(connectionId:string, isConchHolder:boolean){
+    this.hubConnection.invoke('Speak', connectionId);
+    if(isConchHolder){
+      this.StartTimer(connectionId);
+    }
+  }
+
+  StartTimer(connectionId:string){
+    var myinterval = setInterval(() => {
+      this.hubConnection.invoke('StartTimer', connectionId);
+      var isSpeaking = this.hubConnection.invoke<boolean>('IsSpeaking', connectionId);
+      if(!isSpeaking){
+        console.log('tried stopping')
+        this.StopTimer(myinterval);
+      }
+    },1000)
+  }
+
+  StopTimer(myinterval)
+  {
+    clearInterval(myinterval);
   }
 }

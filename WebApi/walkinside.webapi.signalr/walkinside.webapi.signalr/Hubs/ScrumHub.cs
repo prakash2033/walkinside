@@ -77,18 +77,18 @@ namespace walkinside.webapi.signalr.Hubs
                 if (scrumMember != null)
                 {
                     // Mark me spoken
-                    if (!scrumMember.IsScrumMaster)
-                        scrumMember.Spoken = true;
                     scrumMember.IsConchHolder = false;
+                    if (!scrumMember.IsScrumMaster)
+                    {
+                        scrumMember.Spoken = true;
+                        scrumMember.Speaking = false;
+                    }
 
                     // If ball passed to scrum master
                     var selectedScrumMember = team.ScrumMembers.FirstOrDefault(f => f.ConnectionId == connectionId);
                     if (selectedScrumMember != null)
                     {
                         selectedScrumMember.IsConchHolder = true;
-
-                        if (selectedScrumMember.IsScrumMaster)
-                            selectedScrumMember.Spoken = true;
                     }
                 }
                 else
@@ -109,17 +109,47 @@ namespace walkinside.webapi.signalr.Hubs
             }
         }
 
-        public async Task StartTimer(ScrumMember scrumMember, ScrumTeam team)
+        public void StartTimer(string connectionId)
         {
-            await Task.Run(() =>
+            var team = _teams.FirstOrDefault(t => !t.ScrumFinished && t.ScrumStarted && t.ScrumMembers.Any(sm => sm.ConnectionId == connectionId));
+            if (team != null)
             {
-                while (scrumMember.TimeInSeconds > 0)
+                var scrumMember = team.ScrumMembers.First(sm => sm.ConnectionId == connectionId);
+                if (scrumMember.TimeInSeconds > 0)
                 {
+                    scrumMember.Speaking = true;
                     scrumMember.TimeInSeconds--;
                     BroadcastScrumTeam(team);
                 }
-            });
+                else
+                {
+                    scrumMember.Spoken = true;
+                    scrumMember.Speaking = false;
+                }
+            }
+        }
 
+        public void StopTimer(string connectionId)
+        {
+            var team = _teams.FirstOrDefault(t => !t.ScrumFinished && t.ScrumStarted && t.ScrumMembers.Any(sm => sm.ConnectionId == connectionId));
+            if (team != null)
+            {
+                var scrumMember = team.ScrumMembers.First(sm => sm.ConnectionId == connectionId);
+                scrumMember.Speaking = false;
+                BroadcastScrumTeam(team);
+            }
+        }
+
+        public bool IsSpeaking(string connectionId)
+        {
+            bool isSpeaking = false;
+            var team = _teams.FirstOrDefault(t => !t.ScrumFinished && t.ScrumStarted && t.ScrumMembers.Any(sm => sm.ConnectionId == connectionId));
+            if (team != null)
+            {
+                var scrumMember = team.ScrumMembers.First(sm => sm.ConnectionId == connectionId);
+                isSpeaking = scrumMember.Speaking;
+            }
+            return isSpeaking;
         }
 
         public string GetConnectionId()
