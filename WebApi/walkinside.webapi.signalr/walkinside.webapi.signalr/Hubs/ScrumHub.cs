@@ -86,14 +86,15 @@ namespace walkinside.webapi.signalr.Hubs
                     if (selectedScrumMember != null)
                     {
                         selectedScrumMember.IsConchHolder = true;
-                        
+
                         if (selectedScrumMember.IsScrumMaster)
                             selectedScrumMember.Spoken = true;
                     }
                 }
                 else
                 {
-                    team.ErrorMessage = "You are not scrum master or do not have a ball to pass";
+                    var theOneWhoClicked = team.ScrumMembers.FirstOrDefault(sm => sm.ConnectionId == Context.ConnectionId);
+                    team.ErrorMessage = string.Format("{0}, you do not have a ball to pass", theOneWhoClicked.Username);
                 }
 
                 BroadcastScrumTeam(team);
@@ -110,7 +111,8 @@ namespace walkinside.webapi.signalr.Hubs
 
         public async Task StartTimer(ScrumMember scrumMember, ScrumTeam team)
         {
-            await Task.Run(() => {
+            await Task.Run(() =>
+            {
                 while (scrumMember.TimeInSeconds > 0)
                 {
                     scrumMember.TimeInSeconds--;
@@ -129,6 +131,8 @@ namespace walkinside.webapi.signalr.Hubs
         {
             var clients = team.ScrumMembers.Select(t => t.ConnectionId).ToList();
             Clients.Clients(clients).SendAsync("Team", removing ? null : team);
+            if (!string.IsNullOrEmpty(team.ErrorMessage))
+                team.ErrorMessage = string.Empty;
         }
     }
 }

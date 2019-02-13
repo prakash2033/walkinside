@@ -1,12 +1,12 @@
 <div *ngIf="!team" id="join-details" class="">
   <div class="jumbotron">
       <p>Distributed Scrum Daily</p>
-    </div>
+  </div>
   <form [formGroup]="avatarForm" (ngSubmit)="onSubmit(avatarForm)">
     <div id="selected-avatar" class="team-member-picture">
       <img src={{avatarStr}}>
     </div>
-    <div id="form" class="center">
+    <div id="form-group">
       <label>
         User Name:
         <input type="text" formControlName="userName">
@@ -14,112 +14,17 @@
           <div *ngIf="avatarForm.controls.userName.errors.required">Your name is required.</div>
         </div>
       </label>
-      <br/>
+      &nbsp;
       <input type="submit" value="Join" class="btn-primary">
     </div>
   </form>
-<div id="avatar-previews">
-  <div class="avatar-preview-wrapper" (click)='selectAvatar("Angel-icon")'> 
-    <a class="avatar-preview">
-      <img src="assets/avatars/Angel-icon.png">
-    </a>
+  <div id="avatar-previews" >
+    <div class="avatar-preview-wrapper" *ngFor="let imagepath of avatarImages" (click)='selectAvatar(imagepath)'> 
+        <a class="avatar-preview">
+          <img src="{{imagepath}}">
+        </a>
+    </div>
   </div>
-  <div class="avatar-preview-wrapper" (click)='selectAvatar("Clown-icon")'> 
-    <a class="avatar-preview">
-      <img src="assets/avatars/Clown-icon.png">
-    </a>
-  </div>
-  <div class="avatar-preview-wrapper" (click)='selectAvatar("Dad-icon")'> 
-    <a class="avatar-preview">
-      <img src="assets/avatars/Dad-icon.png">
-    </a>
-   </div>
-   <div class="avatar-preview-wrapper" (click)='selectAvatar("Girl-icon")'> 
-      <a class="avatar-preview">
-        <img src="assets/avatars/Girl-icon.png">
-      </a>
-    </div>
-    <div class="avatar-preview-wrapper" (click)='selectAvatar("Kid-icon")'> 
-      <a class="avatar-preview">
-        <img src="assets/avatars/Kid-icon.png">
-      </a>
-    </div>
-    <div class="avatar-preview-wrapper" (click)='selectAvatar("Knight-icon")'> 
-      <a class="avatar-preview">
-      <img src="assets/avatars/Knight-icon.png">
-      </a>
-    </div>
-    <div class="avatar-preview-wrapper" (click)='selectAvatar("Lawyer-icon")'> 
-      <a class="avatar-preview">
-        <img src="assets/avatars/Lawyer-icon.png">
-      </a>
-    </div>
-    <div class="avatar-preview-wrapper" (click)='selectAvatar("Leprechaun-icon")'> 
-      <a class="avatar-preview">
-        <img src="assets/avatars/Leprechaun-icon.png">
-      </a>
-    </div>
-    <div class="avatar-preview-wrapper" (click)='selectAvatar("Man-icon")'> 
-      <a class="avatar-preview">
-        <img src="assets/avatars/Man-icon.png">
-      </a>
-    </div>
-    <div class="avatar-preview-wrapper" (click)='selectAvatar("Mermaid-icon")'> 
-      <a class="avatar-preview">
-        <img src="assets/avatars/Mermaid-icon.png">
-      </a>
-    </div>
-    <div class="avatar-preview-wrapper" (click)='selectAvatar("Monster-icon")'> 
-      <a class="avatar-preview">
-        <img src="assets/avatars/Monster-icon.png">
-      </a>
-    </div>
-    <div class="avatar-preview-wrapper" (click)='selectAvatar("Ninja-icon")'> 
-      <a class="avatar-preview">
-        <img src="assets/avatars/Ninja-icon.png">
-      </a>
-    </div>
-    <div class="avatar-preview-wrapper" (click)='selectAvatar("Pirate-icon")'> 
-      <a class="avatar-preview">
-        <img src="assets/avatars/Pirate-icon.png">
-      </a>
-    </div>
-    <div class="avatar-preview-wrapper" (click)='selectAvatar("Princess-icon")'> 
-      <a class="avatar-preview">
-        <img src="assets/avatars/Princess-icon.png">
-      </a>
-    </div>
-    <div class="avatar-preview-wrapper" (click)='selectAvatar("Robot-icon")'> 
-      <a class="avatar-preview">
-        <img src="assets/avatars/Robot-icon.png">
-      </a>
-    </div>
-    <div class="avatar-preview-wrapper" (click)='selectAvatar("Superhero-icon")'> 
-      <a class="avatar-preview">
-        <img src="assets/avatars/Superhero-icon.png">
-      </a>
-    </div>
-    <div class="avatar-preview-wrapper" (click)='selectAvatar("Teacher-icon")'> 
-      <a class="avatar-preview">
-        <img src="assets/avatars/Teacher-icon.png">
-      </a>
-    </div>
-    <div class="avatar-preview-wrapper" (click)='selectAvatar("Troll-icon")'> 
-      <a class="avatar-preview">
-        <img src="assets/avatars/Troll-icon.png">
-      </a>
-    </div>
-    <div class="avatar-preview-wrapper" (click)='selectAvatar("Vampire-icon")'> 
-      <a class="avatar-preview">
-        <img src="assets/avatars/Vampire-icon.png">
-      </a>
-    </div>
-    <div class="avatar-preview-wrapper" (click)='selectAvatar("Zombie-icon")'> 
-      <a class="avatar-preview">
-        <img src="assets/avatars/Zombie-icon.png">
-      </a>
-    </div>
-</div>
 </div>
 
 <!-- After Create or Join -->
@@ -133,25 +38,12 @@
       <img *ngIf="scrumMember.isScrumMaster" class="scrummaster-badge" src="assets/avatars/scrummaster-badge.png" alt="This is the Scrum Master">  
       <div class="team-member-details">
         <span>{{scrumMember.username}}</span>
-        <!-- <span *ngIf="scrumMember.isConchHolder && (scrumMember.timeInSeconds)">{{scrumMember.timeInSeconds}}</span> -->
       </div>
       <img *ngIf="scrumMember.connectionId == this.clientConnectionId" class="pointer" src="assets/avatars/pointer.png" alt="This is you">
   </a>
 </ng-container>
 <button *ngIf="!team.scrumMaster" (click)="GrabBall()" class="btn-primary">I'm the scrum master</button>
-<ng-container *ngIf="team.errorMessage">
-  
+<ng-container *ngIf="team.errorMessage" class="error">
+
 </ng-container>
 </div>
-
-<!-- <div class="main-button" *ngIf="group.hasStarted && !group.hasFinished">
-    <button (click)="drink()">Drink</button>
-</div>
-<div class="main-button" *ngIf="!group.hasStarted && _hubConnection.connection.connectionId == group.owner">
-    <button (click)="start()">Start</button>
-</div>
-<div class="main-button" *ngIf="group.hasFinished">
-    Drinking is over!!! Winner is
-    <b>{{group.winnerEmail}}</b>. Click
-    <a (click)="clear()">here</a> to start over.
-</div> -->

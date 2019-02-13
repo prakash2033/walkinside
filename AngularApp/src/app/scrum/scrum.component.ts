@@ -15,6 +15,26 @@ export class ScrumComponent implements OnInit {
   public userName: string = ''; 
   public teamName: string = ''; // key
   public clientConnectionId:string='';
+  public avatarImages = ['assets/avatars/Angel-icon.png',
+                          'assets/avatars/Clown-icon.png',
+                          'assets/avatars/Dad-icon.png',
+                          'assets/avatars/Girl-icon.png',
+                          'assets/avatars/Kid-icon.png',
+                          'assets/avatars/Knight-icon.png',
+                          'assets/avatars/Lawyer-icon.png',
+                          'assets/avatars/Leprechaun-icon.png',
+                          'assets/avatars/Man-icon.png',
+                          'assets/avatars/Mermaid-icon.png',
+                          'assets/avatars/Monster-icon.png',
+                          'assets/avatars/Ninja-icon.png',
+                          'assets/avatars/Pirate-icon.png',
+                          'assets/avatars/Princess-icon.png',
+                          'assets/avatars/Robot-icon.png',
+                          'assets/avatars/Superhero-icon.png',
+                          'assets/avatars/Teacher-icon.png',
+                          'assets/avatars/Troll-icon.png',
+                          'assets/avatars/Vampire-icon.png',
+                          'assets/avatars/Zombie-icon.png']
   timeLeft: number = 120;
   interval;
 
@@ -23,8 +43,7 @@ export class ScrumComponent implements OnInit {
   submitted = false;
   success:boolean = false;
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router) {
-    this.avatarStr = "assets/avatars/Kid-icon.png";
-    console.log('scrum ctor called');
+    this.avatarStr = this.avatarImages[Math.floor((Math.random()*this.avatarImages.length)+1)];
    }
 
   ngOnInit() {
@@ -50,13 +69,13 @@ export class ScrumComponent implements OnInit {
       
       this.hubConnection.on('Team', (data: any) => {
         this.team = data; // Scrum Team (Group)
-        //console.log(this.team);
+        console.log(this.team);
       });
       
   }
   
-  selectAvatar(avatarName:any): void {
-    this.avatarStr = 'assets/avatars/' + avatarName + '.png';
+  selectAvatar(avatarPath:any): void {
+    this.avatarStr = avatarPath;
     console.log(this.avatarStr);
   }
 
