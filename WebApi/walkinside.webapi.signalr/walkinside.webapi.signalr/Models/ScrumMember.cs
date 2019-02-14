@@ -20,7 +20,5 @@ namespace walkinside.webapi.signalr.Models
         public int TimeInSeconds { get; set; } = 120;
 
         public bool Spoken { get; set; }
-
-        public bool Speaking { get; set; }
     }
 }

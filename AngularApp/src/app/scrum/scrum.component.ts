@@ -126,18 +126,18 @@ export class ScrumComponent implements OnInit {
   }
 
   StartTimer(connectionId:string){
-    var myinterval = setInterval(() => {
+    var interval = setInterval(() => {
+      // Start for this client
       this.hubConnection.invoke('StartTimer', connectionId);
-      var isSpeaking = this.hubConnection.invoke<boolean>('IsSpeaking', connectionId);
-      if(!isSpeaking){
-        console.log('tried stopping')
-        this.StopTimer(myinterval);
-      }
+      
+      // For this client
+      this.hubConnection.invoke<boolean>('IsSpeaking', connectionId)
+      .then((isSpeaking) => {
+        if(!isSpeaking){
+          console.log('tried stopping')
+          clearInterval(interval);
+        }
+      });
     },1000)
-  }
-
-  StopTimer(myinterval)
-  {
-    clearInterval(myinterval);
   }
 }

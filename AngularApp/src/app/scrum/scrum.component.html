@@ -33,14 +33,14 @@
 <div id="team" *ngIf="team" class="scrum-show">
     
 <ng-container *ngFor="let scrumMember of team.scrumMembers">
-  <a class="team-member" (click)="Speak(scrumMember.connectionId, !scrumMember.isConchHolder)">
-      <div [ngClass]="{'previousconchholder && (!scrumMember.isScrumMaster)': scrumMember.spoken}" class="team-member-picture">
+  <a class="team-member" (click)="Speak(scrumMember.connectionId)">
+      <div [ngClass]="{'previousconchholder': scrumMember.spoken}" class="team-member-picture">
             <img src="{{scrumMember.userImageName}}" />
        </div>
       <img *ngIf="scrumMember.isConchHolder" class="holding-conch" src="assets/avatars/ball.png" alt="This person is holding the ball">  
       <img *ngIf="scrumMember.isScrumMaster" class="scrummaster-badge" src="assets/avatars/scrummaster-badge.png" alt="This is the Scrum Master">  
       <div class="team-member-details">
-        <span>{{scrumMember.username}} - {{scrumMember.timeInSeconds}}</span>
+        <span>{{scrumMember.username}} - {{scrumMember.timeInSeconds}} - spoken({{scrumMember.spoken}})</span>
       </div>
       <img *ngIf="scrumMember.connectionId == this.clientConnectionId" class="pointer" src="assets/avatars/pointer.png" alt="This is you">
   </a>
