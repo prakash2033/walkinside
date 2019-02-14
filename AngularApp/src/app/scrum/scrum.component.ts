@@ -42,7 +42,8 @@ export class ScrumComponent implements OnInit {
   submitted = false;
   success:boolean = false;
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router) {
-    this.avatarStr = this.avatarImages[Math.floor((Math.random()*this.avatarImages.length)+1)];
+    var rnd = Math.floor((Math.random()*this.avatarImages.length-1)+1);
+    this.avatarStr = this.avatarImages[rnd];
    }
 
   ngOnInit() {
@@ -118,26 +119,7 @@ export class ScrumComponent implements OnInit {
     this.hubConnection.invoke('GrabBall');
   }
 
-  Speak(connectionId:string, isConchHolder:boolean){
+  Speak(connectionId:string){
     this.hubConnection.invoke('Speak', connectionId);
-    if(isConchHolder){
-      this.StartTimer(connectionId);
-    }
-  }
-
-  StartTimer(connectionId:string){
-    var interval = setInterval(() => {
-      // Start for this client
-      this.hubConnection.invoke('StartTimer', connectionId);
-      
-      // For this client
-      this.hubConnection.invoke<boolean>('IsSpeaking', connectionId)
-      .then((isSpeaking) => {
-        if(!isSpeaking){
-          console.log('tried stopping')
-          clearInterval(interval);
-        }
-      });
-    },1000)
   }
 }

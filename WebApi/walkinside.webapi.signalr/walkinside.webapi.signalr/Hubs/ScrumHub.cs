@@ -57,6 +57,7 @@ namespace walkinside.webapi.signalr.Hubs
                 {
                     scrumMember.IsScrumMaster = true;
                     scrumMember.IsConchHolder = true;
+                    team.firstTimeBallWithScrumMaster = true;
                     team.ScrumMaster = scrumMember.ConnectionId;
                 }
             }
@@ -75,14 +76,23 @@ namespace walkinside.webapi.signalr.Hubs
             var team = _teams.FirstOrDefault(t => !t.ScrumFinished && t.ScrumStarted && t.ScrumMembers.Any(sm => sm.ConnectionId == Context.ConnectionId));
             if (team != null)
             {
+                // the one who clicked and currently holds the ball
                 var scrumMember = team.ScrumMembers.FirstOrDefault(sm => sm.ConnectionId == Context.ConnectionId && sm.IsConchHolder == true);
                 if (scrumMember != null)
                 {
                     // Mark me spoken if i'm not a scrum master
                     scrumMember.IsConchHolder = false;
-                    if (!scrumMember.IsConchHolder && !scrumMember.IsScrumMaster)
+                    if (!scrumMember.IsConchHolder)
                     {
-                        scrumMember.Spoken = true;
+                        if (scrumMember.IsScrumMaster && !team.firstTimeBallWithScrumMaster)
+                            scrumMember.Spoken = true;
+                        else if (!scrumMember.IsScrumMaster)
+                            scrumMember.Spoken = true;
+                    }
+                    // when scrum master passes the ball for first time then toggle the first time ball indicator to false
+                    if(scrumMember.IsScrumMaster && team.firstTimeBallWithScrumMaster)
+                    {
+                        team.firstTimeBallWithScrumMaster = false;
                     }
 
                     // If ball passed to scrum master
