@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.SignalR;
 using walkinside.webapi.signalr.Models;
 
 namespace walkinside.webapi.signalr.Hubs
 {
+    [EnableCors("AllowAny")]
     public class ScrumHub : Hub
     {
         private static List<ScrumTeam> _teams = new List<ScrumTeam>();

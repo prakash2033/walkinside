@@ -30,10 +30,9 @@ namespace walkinside.webapi.signalr
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowAny", builder => {
-                    builder.WithOrigins("*")
+                    builder.WithOrigins("http://localhost:4200", "http://walkinsidescrumapp.s3-website.eu-central-1.amazonaws.com")
                         .AllowAnyHeader()
                         .AllowAnyMethod()
-                        .AllowAnyOrigin()
                         .AllowCredentials();
                 });
             });

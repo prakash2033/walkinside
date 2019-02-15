@@ -47,7 +47,6 @@ export class ScrumComponent implements OnInit {
    }
 
   ngOnInit() {
-    console.log('scrum nginit called');
     this.route.params.subscribe(p=>{
       if(p['scrumTeam'] != null){
         this.teamName = p['scrumTeam'];

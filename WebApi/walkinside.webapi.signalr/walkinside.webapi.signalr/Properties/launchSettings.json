@@ -1,8 +1,8 @@
-﻿{
+{
   "$schema": "http://json.schemastore.org/launchsettings.json",
   "iisSettings": {
-    "windowsAuthentication": false, 
-    "anonymousAuthentication": true, 
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
     "iisExpress": {
       "applicationUrl": "http://localhost:5838",
       "sslPort": 44314
@@ -25,6 +25,12 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
+    },
+    "Mock Lambda Test Tool": {
+      "commandName": "Executable",
+      "commandLineArgs": "--port 5050",
+      "executablePath": "C:\\Users\\nr9ycs\\.dotnet\\tools\\dotnet-lambda-test-tool-2.1.exe",
+      "workingDirectory": ".\\bin\\Debug\\netcoreapp2.1"
     }
   }
 }
