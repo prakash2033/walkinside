@@ -12,7 +12,7 @@ export class ScrumComponent implements OnInit {
 
   public team: any;
   public hubConnection: HubConnection;
-  public userName: string = ''; 
+  public userName: string = '';
   public teamName: string = ''; // key
   public clientConnectionId:string='';
   public avatarImages = ['assets/avatars/Angel-icon.png',
@@ -47,7 +47,6 @@ export class ScrumComponent implements OnInit {
    }
 
   ngOnInit() {
-    console.log('scrum nginit called');
     this.route.params.subscribe(p=>{
       if(p['scrumTeam'] != null){
         this.teamName = p['scrumTeam'];
@@ -61,25 +60,25 @@ export class ScrumComponent implements OnInit {
     });
 
     // Create Connection
-    this.hubConnection = new HubConnectionBuilder().withUrl("https://localhost:44314/scrum").build();
-    /*this.hubConnection = new HubConnectionBuilder().withUrl("https://kiq6v3ol17.execute-api.eu-central-1.amazonaws.com/Prod/scrum")
+    //this.hubConnection = new HubConnectionBuilder().withUrl("https://localhost:44314/scrum").build();
+   this.hubConnection = new HubConnectionBuilder().withUrl("https://kiq6v3ol17.execute-api.eu-central-1.amazonaws.com/Prod/scrum")
     .configureLogging(LogLevel.Debug)
-    .build();*/
-    
+    .build();
+
     this.hubConnection
       .start()
       .then(() => console.log('Connection started!'))
       .catch((err) => {
-        console.log('Error while establishing connection :(');
+        console.log('Error while establishing connection :('+ err);
       });
-      
+
       this.hubConnection.on('Team', (data: any) => {
         this.team = data; // Scrum Team (Group)
         //console.log(this.team);
       });
-      
+
   }
-  
+
   selectAvatar(avatarPath:any): void {
     this.avatarStr = avatarPath;
     console.log(this.avatarStr);
@@ -87,7 +86,7 @@ export class ScrumComponent implements OnInit {
 
   // Create or Join
   onSubmit(avatarForm:any):void{
-    
+
     this.submitted = true;
     if (this.avatarForm.invalid) {
       return;
