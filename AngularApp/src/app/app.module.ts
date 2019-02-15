@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { ScrumComponent } from './scrum/scrum.component';
+import { NgCircleProgressModule } from 'ng-circle-progress';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,20 @@ import { ScrumComponent } from './scrum/scrum.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgCircleProgressModule.forRoot({
+      "radius": 60,
+      "outerStrokeWidth": 10,
+      "innerStrokeWidth": 5,
+      "showTitle": false,
+      "showSubtitle": false,
+      "showUnits": false,
+      "showBackground": false,
+      "showInnerStroke": false,
+      "clockwise": false,
+      "startFromZero": false,
+      "showZeroOuterStroke": false
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
