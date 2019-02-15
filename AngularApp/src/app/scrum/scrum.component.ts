@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from "@angular/router";
-import { HubConnection, HubConnectionBuilder } from "@aspnet/signalr";
+import { HubConnection, HubConnectionBuilder, LogLevel, HttpTransportType } from "@aspnet/signalr";
 
 @Component({
   selector: 'app-scrum',
@@ -62,10 +62,16 @@ export class ScrumComponent implements OnInit {
 
     // Create Connection
     this.hubConnection = new HubConnectionBuilder().withUrl("https://localhost:44314/scrum").build();
+    /*this.hubConnection = new HubConnectionBuilder().withUrl("https://kiq6v3ol17.execute-api.eu-central-1.amazonaws.com/Prod/scrum")
+    .configureLogging(LogLevel.Debug)
+    .build();*/
+    
     this.hubConnection
       .start()
       .then(() => console.log('Connection started!'))
-      .catch(err => console.log('Error while establishing connection :('));
+      .catch((err) => {
+        console.log('Error while establishing connection :(');
+      });
       
       this.hubConnection.on('Team', (data: any) => {
         this.team = data; // Scrum Team (Group)
