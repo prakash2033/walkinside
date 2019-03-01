@@ -61,7 +61,7 @@ export class ScrumComponent implements OnInit {
 
     // Create Connection
     //this.hubConnection = new HubConnectionBuilder().withUrl("https://localhost:44314/scrum").build();
-   this.hubConnection = new HubConnectionBuilder().withUrl("https://kiq6v3ol17.execute-api.eu-central-1.amazonaws.com/Prod/scrum")
+   this.hubConnection = new HubConnectionBuilder().withUrl("http://walkinsidescrumwebapi.azurewebsites.net/scrum")
     .configureLogging(LogLevel.Debug)
     .build();
 
