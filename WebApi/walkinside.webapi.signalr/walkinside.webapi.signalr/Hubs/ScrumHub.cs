@@ -174,13 +174,13 @@ namespace walkinside.webapi.signalr.Hubs
 
                 BroadcastScrumTeam(team);
 
-                var thoseWhoNotSpokeYet = team.ScrumMembers.FirstOrDefault(sm => sm.Spoken == false);
-                if (thoseWhoNotSpokeYet == null)
-                {
-                    // Everybody spoke scrum is over
-                    team.ScrumFinished = true;
-                    _teams.Remove(team);
-                }
+                //var thoseWhoNotSpokeYet = team.ScrumMembers.FirstOrDefault(sm => sm.Spoken == false);
+                //if (thoseWhoNotSpokeYet == null)
+                //{
+                //    // Everybody spoke scrum is over
+                //    team.ScrumFinished = true;
+                //    _teams.Remove(team);
+                //}
             }
         }
 

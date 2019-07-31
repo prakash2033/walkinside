@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from "@angular/router";
 import { HubConnection, HubConnectionBuilder, LogLevel, HttpTransportType } from "@aspnet/signalr";
 import { NavbarComponent } from '../navbar/navbar.component';
-import {HttpHeaders} from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-scrum',
@@ -44,7 +44,7 @@ export class ScrumComponent implements OnInit {
   avatarStr: string = "";
   submitted = false;
   success: boolean = false;
-  public isPokerEnable  = false;
+  public isPokerEnable = false;
   public isShowVote = false;
 
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router) {
@@ -69,11 +69,11 @@ export class ScrumComponent implements OnInit {
 
 
 
- const headers = new HttpHeaders();
+    const headers = new HttpHeaders();
     headers.set('Content-Type', 'application/json; charset=utf-8');
 
 
-    this.hubConnection = new HubConnectionBuilder().withUrl("https://localhost:44314/scrum")
+    this.hubConnection = new HubConnectionBuilder().withUrl("http://localhost:8089/scrum")
       //this.hubConnection = new HubConnectionBuilder().withUrl("http://walkinsidescrumwebapi.azurewebsites.net/scrum")
       .configureLogging(LogLevel.Debug)
       .build();
@@ -94,7 +94,7 @@ export class ScrumComponent implements OnInit {
 
   }
 
-  togglePoker(){
+  togglePoker() {
     this.team.isPokerEnabled = !this.team.isPokerEnabled;
     this.TogglePoker();
   }
@@ -111,12 +111,16 @@ export class ScrumComponent implements OnInit {
     }
   }
 
-  selectPokerNumber(event: Event){
+  selectPokerNumber(event: Event) {
 
-    let scrumMember = this.team.scrumMembers.filter(x=> x.connectionId === this.clientConnectionId);
+    let scrumMember = this.team.scrumMembers.filter(x => x.connectionId === this.clientConnectionId);
     scrumMember[0].pokerPoint = (event.currentTarget as Element).innerHTML;
 
     this.SelectPoker();
+
+    if (this.team.isShowVote)
+      this.showVote();
+
   }
 
 
@@ -161,16 +165,16 @@ export class ScrumComponent implements OnInit {
     this.hubConnection.invoke('StartScrum');
   }
 
-  TogglePoker(){
-    this.hubConnection.invoke('TogglePoker',this.teamName,this.team.isPokerEnabled);
+  TogglePoker() {
+    this.hubConnection.invoke('TogglePoker', this.teamName, this.team.isPokerEnabled);
   }
 
-  showVote(){
-    this.hubConnection.invoke('ShowVote',this.teamName,true);
+  showVote() {
+    this.hubConnection.invoke('ShowVote', this.teamName, true);
   }
 
-  clearVote(){
-    this.hubConnection.invoke('ClearVote',this.teamName,false);
+  clearVote() {
+    this.hubConnection.invoke('ClearVote', this.teamName, false);
   }
 
   // GrabBall
@@ -182,11 +186,11 @@ export class ScrumComponent implements OnInit {
     this.hubConnection.invoke('Speak', connectionId);
   }
 
-  SelectPoker(){
-    let scrumMember = this.team.scrumMembers.filter(x=> x.connectionId === this.clientConnectionId);
+  SelectPoker() {
+    let scrumMember = this.team.scrumMembers.filter(x => x.connectionId === this.clientConnectionId);
 
-    this.hubConnection.invoke('StartPoker',this.teamName,
-    this.avatarForm.controls.userName.value, scrumMember[0].pokerPoint);
+    this.hubConnection.invoke('StartPoker', this.teamName,
+      this.avatarForm.controls.userName.value, scrumMember[0].pokerPoint);
   }
 
   // ClearPoker(){
