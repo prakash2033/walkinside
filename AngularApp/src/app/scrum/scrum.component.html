@@ -1,6 +1,6 @@
 <div *ngIf="!team" id="join-details" class="">
   <div class="jumbotron">
-      <p>Distributed Scrum Daily</p>
+    <p>Distributed Scrum Daily</p>
   </div>
   <form [formGroup]="avatarForm" (ngSubmit)="onSubmit(avatarForm)">
     <div id="selected-avatar" class="team-member-picture">
@@ -18,43 +18,66 @@
       <input type="submit" value="Join" class="btn-primary">
     </div>
   </form>
-  <div id="avatar-previews" >
+  <div id="avatar-previews">
     <div class="avatar-preview-wrapper" *ngFor="let imagepath of avatarImages" (click)='selectAvatar(imagepath)'>
-        <a class="avatar-preview">
-          <img src="{{imagepath}}">
-        </a>
+      <a class="avatar-preview">
+        <img src="{{imagepath}}">
+      </a>
     </div>
   </div>
 </div>
 
+<div class="custom-control custom-switch" *ngIf="team && team.scrumMaster === clientConnectionId">
+    <input type="checkbox" class="custom-control-input" id="switch1" name="example" (click)="togglePoker()">
+    <label class="custom-control-label" for="switch1">Show Poker</label>
+    <input type="button" value="show vote" class="btn-primary" (click)="showVote()"/>
+    <input type="button" value="clear vote" class="btn-primary" (click)="clearVote()"/>
+
+</div>
+
+<div class="poker-number scrum-show" *ngIf="team && team.isPokerEnabled">
+  <div>
+  <div *ngFor="let fib of fibSeries" style="padding: 5px">
+    <button class="poker-number-button" (click)="selectPokerNumber($event)">{{fib}}</button>
+  </div>
+</div>
+</div>
+
 <div id="team" *ngIf="team" class="scrum-show">
   <ng-container *ngFor="let scrumMember of team.scrumMembers">
-    <a class="team-member" (click)="Speak(scrumMember.connectionId)">
-        <div [ngClass]="{'previousconchholder': scrumMember.spoken}" class="team-member-picture">
-              <img src="{{scrumMember.userImageName}}" />
-        </div>
-        <img *ngIf="scrumMember.isConchHolder" class="holding-conch" src="assets/avatars/ball.png" alt="This person is holding the ball">
-        <img *ngIf="scrumMember.isScrumMaster" class="scrummaster-badge" src="assets/avatars/scrummaster-badge.png" alt="This is the Scrum Master">
-        <div class="team-member-details">
-          <span>{{scrumMember.username}} - {{scrumMember.timeInSeconds}}</span>
 
-          <circle-progress *ngIf="!scrumMember.spoken"
-          [percent]="(scrumMember.timeInSeconds/120)*100"
-          [radius]="87"
-          [outerStrokeWidth]="5"
-          [innerStrokeWidth]="8"
-          [outerStrokeColor]="'#048'"
-          [innerStrokeColor]="'#C7E596'"
-          [animation]="false"
-         >
+    <a class="team-member" (click)="Speak(scrumMember.connectionId)">
+      <div [ngClass]="{'previousconchholder': scrumMember.spoken}" class="team-member-picture">
+        <img src="{{scrumMember.userImageName}}" />
+      </div>
+
+      <img *ngIf="scrumMember.isConchHolder" class="holding-conch" src="assets/avatars/ball.png"
+        alt="This person is holding the ball">
+      <img *ngIf="scrumMember.isScrumMaster" class="scrummaster-badge" src="assets/avatars/scrummaster-badge.png"
+        alt="This is the Scrum Master">
+      <div class="team-member-details">
+        <span>{{scrumMember.username}} - {{scrumMember.timeInSeconds}} - {{scrumMember.pokerPoint}}</span>
+
+        <circle-progress *ngIf="!scrumMember.spoken && !team.isPokerEnabled" [percent]="(scrumMember.timeInSeconds/120)*100" [radius]="87" g
+          [outerStrokeWidth]="5" [innerStrokeWidth]="8" [outerStrokeColor]="'#048'" [innerStrokeColor]="'#C7E596'"
+          [animation]="false">
         </circle-progress>
 
-        </div>
-        <img *ngIf="scrumMember.connectionId == this.clientConnectionId" class="pointer" src="assets/avatars/pointer.png" alt="This is you">
+      </div>
+      <img *ngIf="scrumMember.connectionId == clientConnectionId" class="pointer" src="assets/avatars/pointer.png"
+        alt="This is you">
+
+       <div *ngIf="team.isPokerEnabled" class="team-member-picture poker-avatar"></div>
+      <span class="poker-number-show" *ngIf="team.isShowVote && scrumMember.pokerPoint!=='NaN'">{{scrumMember.pokerPoint}}</span>
+
+      <div style="position: relative;top:-311px;" *ngIf="!team.isShowVote">
+        <span class="spinner-grow spinner-grow-sm" style="background-color: white" role="status" aria-hidden="true"></span>
+        <span class="spinner-grow spinner-grow-sm" style="background-color: white" role="status" aria-hidden="true"></span>
+        <span class="spinner-grow spinner-grow-sm" style="background-color: white" role="status" aria-hidden="true"></span>
+      </div>
+
+      <!-- <div *ngIf="scrumMember.connectionId == this.clientConnectionId" class="team-member-picture poker-avatar-1">{{selectedPoker}}</div> -->
     </a>
   </ng-container>
   <button *ngIf="!team.scrumMaster" (click)="GrabBall()" class="btn-primary">I'm the Scrum Master</button>
 </div>
-
-
-

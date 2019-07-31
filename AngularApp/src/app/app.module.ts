@@ -8,13 +8,15 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { ScrumComponent } from './scrum/scrum.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { PokerComponent } from './poker/poker.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     HomeComponent,
-    ScrumComponent
+    ScrumComponent,
+    PokerComponent
   ],
   imports: [
     BrowserModule,

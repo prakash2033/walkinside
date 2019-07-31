@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace walkinside.webapi.signalr.Models
+﻿namespace walkinside.webapi.signalr.Models
 {
     public class ScrumMember
     {
-        public bool IsScrumMaster { get; set; } 
+        public bool IsScrumMaster { get; set; }
 
         public bool IsConchHolder { get; set; }
 
@@ -17,8 +12,10 @@ namespace walkinside.webapi.signalr.Models
 
         public string UserImageName { get; set; }
 
-        public int TimeInSeconds { get; set; } = 120;
+        public int TimeInSeconds { get; set; } = 5;
 
         public bool Spoken { get; set; }
+        public string PokerPoint { get; set; }
+        
     }
 }

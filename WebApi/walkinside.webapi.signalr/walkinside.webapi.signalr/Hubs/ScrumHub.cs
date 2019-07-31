@@ -48,6 +48,52 @@ namespace walkinside.webapi.signalr.Hubs
             BroadcastScrumTeam(team);
         }
 
+        public void TogglePoker(string key, bool isPokerEnabled)
+        {
+            var team = _teams.FirstOrDefault(t => t.Key == key);
+            if (team != null)
+            {
+                team.IsPokerEnabled = isPokerEnabled;
+            }
+            BroadcastScrumTeam(team);
+        }
+
+        public void StartPoker(string key, string userName, string point)
+        {
+            var team = _teams.FirstOrDefault(t => t.Key == key);
+            if (team != null)
+            {
+                var scrumMember = team.ScrumMembers.FirstOrDefault(sm => sm.ConnectionId == Context.ConnectionId);
+                if (scrumMember != null)
+                {
+                    scrumMember.PokerPoint = point;
+                }
+            }
+            //BroadcastScrumTeam(team);
+        }
+
+        public void ShowVote(string key,bool isShowVote)
+        {
+            var team = _teams.FirstOrDefault(t => t.Key == key);
+            if (team != null)
+            {
+                team.IsShowVote = isShowVote;
+                BroadcastScrumTeam(team);
+            }
+        }
+
+        public void ClearVote(string key, bool isShowVote)
+        {
+            var team = _teams.FirstOrDefault(t => t.Key == key);
+            if (team != null)
+            {
+                team.IsShowVote = isShowVote;
+                team.ScrumMembers.ForEach(t=>t.PokerPoint = "NaN");
+                BroadcastScrumTeam(team);
+            }
+
+        }
+
         public void GrabBall()
         {
             // I'm the scrum master

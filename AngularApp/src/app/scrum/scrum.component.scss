@@ -1,3 +1,58 @@
+.poker-number-button{
+  font-weight: bold;
+  color: white;
+  background: grey;
+}
+.poker-number{
+  // display: flex;
+  // background-color: black;
+  // width: 50%;
+  // margin-left: 35%;
+  // margin-right: 43%;
+  margin-top: 5%;
+  text-align: center;
+}
+
+.poker-number div:first-child{
+  display: inline-flex;
+  background-color: black;
+
+}
+
+.poker-enable-button{
+    float: right;
+    position: relative;
+    display: inline-block;
+    right: 2px;
+}
+.poker-avatar{
+  width: 169.63px;
+  height: 170.95px;
+  top:-210px;
+  opacity: 0.75;
+  background-color: black;
+  border: none;
+}
+
+.poker-number-show{
+  top: -335px;
+  left: -4px;
+  /* margin-top: 50%; */
+  position: relative;
+  font-size: 47px;
+  color: white;
+  display: block;
+}
+
+.poker-avatar-1{
+  width: 169.63px;
+  height: 170.95px;
+  top:-241px;
+  border: none;
+  font-size: 107px;
+  color: white;
+}
+
 .pointer {
     display: block;
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
@@ -11,7 +66,7 @@
     -webkit-animation: is-client 4s 1;
     -moz-animation: is-client 4s 1;
     animation: is-client 4s 1;
-    
+
     border-color: #048;
   }
 
@@ -39,6 +94,15 @@
     opacity: 0.4;
  }
 
- 
+.test:after {
+  content: '\2807';
+  font-size: 100px;
+  transform: rotate(90deg);
+  color: white;
+  }
 
-
+  .square {
+    height: 50px;
+    width: 50px;
+    background-color: #555;
+  }
